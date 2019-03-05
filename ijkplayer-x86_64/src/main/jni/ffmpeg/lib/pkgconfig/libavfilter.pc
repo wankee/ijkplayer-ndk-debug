@@ -1,0 +1,14 @@
+prefix=/home/ubutnu/ijkplayer-android/android/contrib/build/ffmpeg-x86_64/output
+exec_prefix=${prefix}
+libdir=/home/ubutnu/ijkplayer-android/android/contrib/build/ffmpeg-x86_64/output/lib
+includedir=/home/ubutnu/ijkplayer-android/android/contrib/build/ffmpeg-x86_64/output/include
+
+Name: libavfilter
+Description: FFmpeg audio/video filtering library
+Version: 6.107.100
+Requires: libavutil >= 55.78.100
+Requires.private: 
+Conflicts:
+Libs: -L${libdir}  -lavfilter -lm -lz -pthread -pthread
+Libs.private: 
+Cflags: -I${includedir}

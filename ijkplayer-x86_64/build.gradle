@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+
+android {
+    // http://tools.android.com/tech-docs/new-build-system/tips
+    //noinspection GroovyAssignabilityCheck
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    //noinspection GroovyAssignabilityCheck
+//    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        externalNativeBuild {
+            ndkBuild {
+                arguments "NDK_APPLICATION_MK:=src/main/jni/Application.mk"
+                abiFilters "x86_64"
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            jniDebuggable true
+            ndk {
+                debuggable true
+            }
+        }
+    }
+
+//    sourceSets {
+//        main {
+//            jni.srcDirs=[]
+//            jniLibs.srcDirs  'src/main/jni'
+//        }
+//    }
+//    sourceSets.main {
+//        jniLibs.srcDirs 'src/main/libs'
+//        jni.srcDirs = [] // This prevents the auto generation of Android.mk
+    externalNativeBuild {
+        ndkBuild {
+            path 'src/main/jni/Android.mk'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+apply from: new File(rootProject.projectDir, "tools/gradle-on-demand.gradle");
